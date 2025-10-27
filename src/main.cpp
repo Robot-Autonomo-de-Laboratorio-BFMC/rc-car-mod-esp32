@@ -13,8 +13,8 @@ const int SERVO_PIN = 25;
 Servo steerServo;
 
 // Servo angles (changeable via web)
-int SERVO_CENTER = 90;
-int SERVO_LEFT = 45;
+int SERVO_CENTER = 105;
+int SERVO_LEFT = 50;
 int SERVO_RIGHT = 135;
 int currentAngle = SERVO_CENTER;
 
