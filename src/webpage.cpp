@@ -129,49 +129,124 @@ const char *webpage = R"html(
         />
       </div>
 
-      <!--Servo Left Angle Slider-->
+      <!--Servo Left Angle Controls-->
       <div style="grid-row: 3; grid-column: 1; text-align: center; padding: 5px">
         <h4>Izquierda</h4>
-        <input
-          type="range"
-          min="0"
-          max="90"
-          value="45"
-          id="servo-left-slider"
-          style="width: 90%; height: 20px"
-          onchange='makeAjaxCall("setServoLeft?angle=" + this.value)'
-        />
-        <p id="left-value" style="margin-top: 5px; font-size: 1rem">45°</p>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 5px">
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('left', -10)"
+            >
+              −10
+            </button>
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('left', -1)"
+            >
+              −
+            </button>
+          </div>
+          <span id="left-value" style="font-size: 1.5rem; min-width: 60px">45°</span>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 5px">
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('left', 1)"
+            >
+              +
+            </button>
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('left', 10)"
+            >
+              +10
+            </button>
+          </div>
+        </div>
       </div>
 
-      <!--Servo Center Angle Slider-->
+      <!--Servo Center Angle Controls-->
       <div style="grid-row: 3; grid-column: 2; text-align: center; padding: 5px">
         <h4>Centro</h4>
-        <input
-          type="range"
-          min="0"
-          max="180"
-          value="90"
-          id="servo-center-slider"
-          style="width: 90%; height: 20px"
-          onchange='makeAjaxCall("setServoCenter?angle=" + this.value)'
-        />
-        <p id="center-value" style="margin-top: 5px; font-size: 1rem">90°</p>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 5px">
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('center', -10)"
+            >
+              −10
+            </button>
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('center', -1)"
+            >
+              −
+            </button>
+          </div>
+          <span id="center-value" style="font-size: 1.5rem; min-width: 60px">90°</span>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 5px">
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('center', 1)"
+            >
+              +
+            </button>
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('center', 10)"
+            >
+              +10
+            </button>
+          </div>
+        </div>
       </div>
 
-      <!--Servo Right Angle Slider-->
+      <!--Servo Right Angle Controls-->
       <div style="grid-row: 3; grid-column: 3; text-align: center; padding: 5px">
         <h4>Derecha</h4>
-        <input
-          type="range"
-          min="90"
-          max="180"
-          value="135"
-          id="servo-right-slider"
-          style="width: 90%; height: 20px"
-          onchange='makeAjaxCall("setServoRight?angle=" + this.value)'
-        />
-        <p id="right-value" style="margin-top: 5px; font-size: 1rem">135°</p>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 5px">
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('right', -10)"
+            >
+              −10
+            </button>
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('right', -1)"
+            >
+              −
+            </button>
+          </div>
+          <span id="right-value" style="font-size: 1.5rem; min-width: 60px">135°</span>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 5px">
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('right', 1)"
+            >
+              +
+            </button>
+            <button
+              class="btn btn-secondary btn-sm btn-animate"
+              style="width: 40px; height: 40px; font-size: 1.2rem; padding: 0"
+              onclick="adjustServoAngle('right', 10)"
+            >
+              +10
+            </button>
+          </div>
+        </div>
       </div>
 
       <!--Forward-->
@@ -290,18 +365,35 @@ const char *webpage = R"html(
         $.ajax({ url: url });
       }
       
-      // Update angle values as sliders move
-      document.getElementById('servo-left-slider').addEventListener('input', function() {
-        document.getElementById('left-value').textContent = this.value + '°';
-      });
+      // Servo angle values
+      let servoLeft = 45;
+      let servoCenter = 90;
+      let servoRight = 135;
       
-      document.getElementById('servo-center-slider').addEventListener('input', function() {
-        document.getElementById('center-value').textContent = this.value + '°';
-      });
-      
-      document.getElementById('servo-right-slider').addEventListener('input', function() {
-        document.getElementById('right-value').textContent = this.value + '°';
-      });
+      // Adjust servo angle and update display
+      function adjustServoAngle(type, change) {
+        let newValue;
+        let endpoint;
+        
+        if (type === 'left') {
+          servoLeft = Math.max(0, Math.min(90, servoLeft + change));
+          newValue = servoLeft;
+          endpoint = 'setServoLeft';
+          document.getElementById('left-value').textContent = servoLeft + '°';
+        } else if (type === 'center') {
+          servoCenter = Math.max(0, Math.min(180, servoCenter + change));
+          newValue = servoCenter;
+          endpoint = 'setServoCenter';
+          document.getElementById('center-value').textContent = servoCenter + '°';
+        } else if (type === 'right') {
+          servoRight = Math.max(90, Math.min(180, servoRight + change));
+          newValue = servoRight;
+          endpoint = 'setServoRight';
+          document.getElementById('right-value').textContent = servoRight + '°';
+        }
+        
+        makeAjaxCall(endpoint + '?angle=' + newValue);
+      }
     </script>
     <script>
       document.addEventListener("keydown", function (event) {
