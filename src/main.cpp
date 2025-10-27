@@ -4,13 +4,19 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 #include <Ticker.h>
+#include <ESP32Servo.h>
 #include <wifi_data.h>
 #include <webpage.cpp>
 
-// Motor steer
-const int ENA = 25;
-const int IN1 = 26;
-const int IN2 = 27;
+// Servo steer
+const int SERVO_PIN = 25;
+Servo steerServo;
+
+// Servo angles
+const int SERVO_CENTER = 90;
+const int SERVO_LEFT = 45;
+const int SERVO_RIGHT = 135;
+int currentAngle = SERVO_CENTER;
 
 // Motor drive
 const int IN3 = 14;
@@ -100,9 +106,6 @@ void setup(void)
 {
   Serial.begin(SERIAL_BAUD);
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(ENA, OUTPUT);
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
   pinMode(ENB, OUTPUT);
@@ -111,6 +114,13 @@ void setup(void)
   digitalWrite(LED_BUILTIN, LOW);
   digitalWrite(HEADLIGHTS, LOW);
   digitalWrite(REVERSE_LIGHTS, LOW);
+  
+  // Initialize servo
+  steerServo.setPeriodHertz(50);
+  steerServo.attach(SERVO_PIN, 500, 2500);
+  steerServo.write(SERVO_CENTER);
+  currentAngle = SERVO_CENTER;
+  
   handleWifi();
 
   server.on("/", handleRoot);
@@ -143,25 +153,22 @@ void setup(void)
   server.on("/right", []()
             {
     Serial.println("right");
-    digitalWrite(IN1, HIGH);
-    digitalWrite(IN2, LOW);
-    analogWrite(ENA, SPEED_MAX);
+    currentAngle = SERVO_RIGHT;
+    steerServo.write(currentAngle);
     server.send(200, "text/plain", "right"); });
 
   server.on("/left", []()
             {
     Serial.println("left");
-    digitalWrite(IN1, LOW);
-    digitalWrite(IN2, HIGH); 
-    analogWrite(ENA, SPEED_MAX);
+    currentAngle = SERVO_LEFT;
+    steerServo.write(currentAngle);
     server.send(200, "text/plain", "left"); });
 
   server.on("/steerStop", []()
             {
     Serial.println("steerStop");
-    digitalWrite(IN1, LOW);
-    digitalWrite(IN2, LOW); 
-    analogWrite(ENA, 0);
+    currentAngle = SERVO_CENTER;
+    steerServo.write(currentAngle);
     server.send(200, "text/plain", "steerStop"); });
 
   server.on("/LightsOn", []()
