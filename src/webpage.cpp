@@ -48,7 +48,7 @@ const char *webpage = R"html(
       style="
         display: grid;
         grid-template-columns: repeat(3);
-        grid-template-rows: repeat(5);
+        grid-template-rows: repeat(6);
       "
     >
       <!--LightsOff-->
@@ -116,7 +116,7 @@ const char *webpage = R"html(
         </button>
       </div>
 
-      <!--Slider-->
+      <!--Velocity Slider-->
       <div style="grid-row: 2; grid-column: 1 / span 3; text-align: center">
         <h2>Velocidad</h2>
         <input
@@ -129,10 +129,55 @@ const char *webpage = R"html(
         />
       </div>
 
+      <!--Servo Left Angle Slider-->
+      <div style="grid-row: 3; grid-column: 1; text-align: center; padding: 5px">
+        <h4>Izquierda</h4>
+        <input
+          type="range"
+          min="0"
+          max="90"
+          value="45"
+          id="servo-left-slider"
+          style="width: 90%; height: 20px"
+          onchange='makeAjaxCall("setServoLeft?angle=" + this.value)'
+        />
+        <p id="left-value" style="margin-top: 5px; font-size: 1rem">45°</p>
+      </div>
+
+      <!--Servo Center Angle Slider-->
+      <div style="grid-row: 3; grid-column: 2; text-align: center; padding: 5px">
+        <h4>Centro</h4>
+        <input
+          type="range"
+          min="0"
+          max="180"
+          value="90"
+          id="servo-center-slider"
+          style="width: 90%; height: 20px"
+          onchange='makeAjaxCall("setServoCenter?angle=" + this.value)'
+        />
+        <p id="center-value" style="margin-top: 5px; font-size: 1rem">90°</p>
+      </div>
+
+      <!--Servo Right Angle Slider-->
+      <div style="grid-row: 3; grid-column: 3; text-align: center; padding: 5px">
+        <h4>Derecha</h4>
+        <input
+          type="range"
+          min="90"
+          max="180"
+          value="135"
+          id="servo-right-slider"
+          style="width: 90%; height: 20px"
+          onchange='makeAjaxCall("setServoRight?angle=" + this.value)'
+        />
+        <p id="right-value" style="margin-top: 5px; font-size: 1rem">135°</p>
+      </div>
+
       <!--Forward-->
       <div
         class="align-items-start justify-content-center"
-        style="grid-column: 2; grid-row: 3; text-align: center"
+        style="grid-column: 2; grid-row: 4; text-align: center"
       >
         <div class="">
           <button
@@ -162,7 +207,7 @@ const char *webpage = R"html(
       <!--Reverse-->
       <div
         class="align-items-end justify-content-center"
-        style="grid-column: 2; grid-row: 5; text-align: center"
+        style="grid-column: 2; grid-row: 6; text-align: center"
       >
         <div class="">
           <button
@@ -190,7 +235,7 @@ const char *webpage = R"html(
       </div>
 
       <!--TurnLeft-->
-      <div class="" style="grid-row: 4; grid-column: 1; text-align: end">
+      <div class="" style="grid-row: 5; grid-column: 1; text-align: end">
         <button
           id="left"
           type="button"
@@ -215,7 +260,7 @@ const char *webpage = R"html(
       </div>
 
       <!--TurnRight-->
-      <div class="" style="grid-row: 4; grid-column: 3; text-align: start">
+      <div class="" style="grid-row: 5; grid-column: 3; text-align: start">
         <button
           id="right"
           type="button"
@@ -244,6 +289,19 @@ const char *webpage = R"html(
       function makeAjaxCall(url) {
         $.ajax({ url: url });
       }
+      
+      // Update angle values as sliders move
+      document.getElementById('servo-left-slider').addEventListener('input', function() {
+        document.getElementById('left-value').textContent = this.value + '°';
+      });
+      
+      document.getElementById('servo-center-slider').addEventListener('input', function() {
+        document.getElementById('center-value').textContent = this.value + '°';
+      });
+      
+      document.getElementById('servo-right-slider').addEventListener('input', function() {
+        document.getElementById('right-value').textContent = this.value + '°';
+      });
     </script>
     <script>
       document.addEventListener("keydown", function (event) {

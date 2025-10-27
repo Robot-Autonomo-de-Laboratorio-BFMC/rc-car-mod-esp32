@@ -12,10 +12,10 @@
 const int SERVO_PIN = 25;
 Servo steerServo;
 
-// Servo angles
-const int SERVO_CENTER = 90;
-const int SERVO_LEFT = 45;
-const int SERVO_RIGHT = 135;
+// Servo angles (changeable via web)
+int SERVO_CENTER = 90;
+int SERVO_LEFT = 45;
+int SERVO_RIGHT = 135;
 int currentAngle = SERVO_CENTER;
 
 // Motor drive
@@ -197,6 +197,27 @@ void setup(void)
     Serial.println("Speed changed to " + speedValue);
     SPEED = speedValue.toInt();
     server.send(200, "text/plain", "Velocidad limitada a " + speedValue); });
+
+  server.on("/setServoLeft", []()
+            {
+    String angleValue = server.arg("angle");
+    Serial.println("Servo LEFT angle changed to " + angleValue);
+    SERVO_LEFT = angleValue.toInt();
+    server.send(200, "text/plain", "Ángulo izquierda establecido a " + angleValue); });
+
+  server.on("/setServoCenter", []()
+            {
+    String angleValue = server.arg("angle");
+    Serial.println("Servo CENTER angle changed to " + angleValue);
+    SERVO_CENTER = angleValue.toInt();
+    server.send(200, "text/plain", "Ángulo centro establecido a " + angleValue); });
+
+  server.on("/setServoRight", []()
+            {
+    String angleValue = server.arg("angle");
+    Serial.println("Servo RIGHT angle changed to " + angleValue);
+    SERVO_RIGHT = angleValue.toInt();
+    server.send(200, "text/plain", "Ángulo derecha establecido a " + angleValue); });
 
   server.onNotFound(handleNotFound);
   server.begin();
